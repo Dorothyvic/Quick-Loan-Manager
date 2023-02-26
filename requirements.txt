@@ -1,0 +1,14 @@
+asgiref==3.4.1
+distlib==0.3.6
+Django==4.0.1
+filelock==3.9.0
+mysqlclient==2.1.0
+pbr==5.11.0
+platformdirs==2.6.2
+python-decouple==3.5
+sqlparse==0.4.2
+stevedore==4.1.1
+tzdata==2021.5
+virtualenv==20.17.1
+virtualenv-clone==0.5.7
+virtualenvwrapper==4.8.4

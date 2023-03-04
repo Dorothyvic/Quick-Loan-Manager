@@ -49,6 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_contact = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    reset_token = models.CharField(null=True, max_length=255, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -56,7 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.username
+        return self.email
 
 
 class Business(models.Model):
@@ -73,6 +74,9 @@ class Customers(models.Model):
     email = models.EmailField(null=True, blank=True, max_length=200)
     place_of_work = models.CharField(null=True, blank=True, max_length=200)
     next_of_kin = models.CharField(null=True, blank=True, max_length=200)
+
+    def __str__(self):
+        return self.name
 
 
 class LoanRequests(models.Model):

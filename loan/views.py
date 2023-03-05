@@ -12,7 +12,8 @@ from .models import User, Customers
 
 def index(request):
     if request.user.is_authenticated:
-        context = {}
+        customers_count = Customers.objects.count()
+        context = {'customers_count': customers_count}
         return render(request, 'loan/index.html', context)
     else:
         return redirect("login")
@@ -58,36 +59,7 @@ def send_reset(request):
         send_email(message, email, email.split("@")[0], "Password reset Link")
         return redirect('login')
     else:
-        return render(request, "loan/aut-unlock.html")
-
-
-def register(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        gender = request.POST['gender']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        place_of_work = request.POST['work']
-        next_of_kin = request.POST['kin']
-
-        email_check = Customers.objects.filter(email=email)
-        if email_check.count() > 0:
-            messages.error(request, "Email already exists")
-            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
-        phone_check = Customers.objects.filter(phone=phone)
-        if phone_check.count() > 0:
-            messages.error(request, "Phone number already exists")
-            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
-        Customers.objects.create(name=name, gender=gender, phone=phone,
-                                 email=email, place_of_work=place_of_work, next_of_kin=next_of_kin)
-
-        messages.success(request, "Customer successfully added")
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-    else:
-        context = {}
-        return render(request, 'loan/form-layout.html', context)
+        return render(request, "loan/send_reset.html")
 
 
 def new_password(request, pk, token):
@@ -113,6 +85,77 @@ def new_password(request, pk, token):
             return redirect("index")
 
         else:
-            return render(request, "loan/aut-password.html", {"user_id": pk, "token": token})
+            return render(request, "loan/new_password.html", {"user_id": pk, "token": token})
     else:
         return HttpResponse("Invalid URL")
+
+
+def register(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        gender = request.POST['gender']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        place_of_work = request.POST['work']
+        next_of_kin = request.POST['kin']
+
+        email_check = Customers.objects.filter(email=email)
+        if email_check.count() > 0:
+            messages.error(request, "Email already exists")
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+        phone_check = Customers.objects.filter(phone=phone)
+        if phone_check.count() > 0:
+            messages.error(request, "Phone number already exists")
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+        Customers.objects.create(name=name, gender=gender, phone=phone,
+                                 email=email, place_of_work=place_of_work, next_of_kin=next_of_kin)
+
+        messages.success(request, "Customer successfully added")
+        return redirect('customers')
+        # return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        context = {}
+        return render(request, 'loan/create_customer.html', context)
+
+
+def customers(request):
+    customers = Customers.objects.all()
+    context = {'customers': customers}
+    return render(request, 'loan/customers.html', context)
+
+
+def update_customer(request, pk):
+    customer = Customers.objects.get(id=pk)
+    if request.method == 'POST':
+        name = request.POST['name']
+        gender = request.POST['gender']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        place_of_work = request.POST['work']
+        next_of_kin = request.POST['kin']
+
+        customer.name = name
+        customer.gender = gender
+        customer.phone = phone
+        customer.email = email
+        customer.place_of_work = place_of_work
+        customer.next_of_kin = next_of_kin
+        customer.save()
+
+        messages.success(request, "Customer successfully updated")
+        return redirect('customers')
+
+    else:
+        context = {'customer': customer}
+        return render(request, 'loan/update_customer.html', context)
+
+
+def delete_customer(request, pk):
+    customer = Customers.objects.get(id=pk)
+    if request.method == 'POST':
+        customer.delete()
+        return redirect('customers')
+    context = {'customer': customer}
+    return render(request, 'loan/delete_customer.html', context)

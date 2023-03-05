@@ -1,0 +1,26 @@
+{% extends 'loan/base/base.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Inner Start -->
+<!--================================-->
+<div class="page-inner">
+   <!-- Main Wrapper -->
+    <div id="main-wrapper">
+        <div class="mg-y-30">
+
+
+            <h4 class="mg-y-30">Are you sure you want to delete {{ customer.name }}</h4>
+            <div class="cui-example cui-example-inline-spacing">
+                 <form action="/delete_customer/{{ customer.id }}/" method="post">
+                     {% csrf_token %}
+                     <a href="{% url 'customers' %}" id="bootbox-alert" class="btn btn-sm btn-warning">Cancel</a>
+                    <input id="bootbox-confirm" type="submit" value="Delete" class="btn btn-sm btn-danger">
+                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <br><br>
+{% endblock %}
+
+

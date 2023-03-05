@@ -1,0 +1,135 @@
+{% extends 'loan/base/base.html' %}
+{% load static %}
+
+<!-- Page Inner Start -->
+<!--================================-->
+{% block content %}
+<div class="page-inner">
+<!-- Wrapper -->
+<div class="wrapper">
+  <!--================================-->
+  <!-- Breadcrumb Start -->
+  <!--================================-->
+  <div class="pageheader pd-t-25 pd-b-35">
+     <div class="d-flex justify-content-between">
+        <div class="clearfix">
+           <div class="pd-t-5 pd-b-5">
+              <h1 class="pd-0 mg-0 tx-20 tx-dark">Form Layouts</h1>
+           </div>
+           <div class="breadcrumb pd-0 mg-0">
+              <a class="breadcrumb-item" href="index.html"><i class="icon ion-ios-home-outline"></i> Home</a>
+              <a class="breadcrumb-item" href="">Form</a>
+              <span class="breadcrumb-item active">Form Layouts</span>
+           </div>
+        </div>
+     </div>
+  </div>
+  <!--/ Breadcrumb End -->
+  <!--================================-->
+  <!-- Form Layout Start -->
+  <!--================================-->
+
+  <div class="row clearfix">
+     <!--================================-->
+     <!-- Top Label Layout Start -->
+     <!--================================-->
+     <div class="col-md-12 col-lg-12">
+        <div class="card mg-b-30">
+           <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                 <div>
+                    <h6 class="card-header-title tx-13 mb-0">Top Label Layout</h6>
+                 </div>
+                 <div class="text-right">
+                    <div class="d-flex">
+                       <a href="" class="mr-3"><i class="ti-reload"></i></a>
+                       <div class="dropdown" data-toggle="dropdown">
+                          <a href=""><i class="ti-more-alt"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                              <a href="" class="dropdown-item"><i data-feather="info" class="wd-16 mr-2"></i>View Details</a>
+                              <a href="" class="dropdown-item"><i data-feather="share" class="wd-16 mr-2"></i>Share</a>
+                              <a href="" class="dropdown-item"><i data-feather="download" class="wd-16 mr-2"></i>Download</a>
+                              <a href="" class="dropdown-item"><i data-feather="copy" class="wd-16 mr-2"></i>Copy to</a>
+                              <a href="" class="dropdown-item"><i data-feather="folder" class="wd-16 mr-2"></i>Move to</a>
+                              <a href="" class="dropdown-item"><i data-feather="edit" class="wd-16 mr-2"></i>Rename</a>
+                              <a href="" class="dropdown-item"><i data-feather="trash" class="wd-16 mr-2"></i>Delete</a>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="card-body">
+               <form action="/update_customer/{{ customer.id }}/" method="post">
+                   {% csrf_token %}
+              <div class="form-layout form-layout-1">
+                 <div class="row mg-b-25">
+                    <div class="col-lg-4">
+                       <div class="form-group">
+                          <label class="form-control-label active">Name: <span class="tx-danger">*</span></label>
+                          <input class="form-control" type="text" name="name" value="{{ customer.name }}">
+                       </div>
+                    </div>
+                    <!-- col-4 -->
+                    <div class="col-lg-4">
+                       <div class="form-group">
+                          <label class="form-control-label active">Gender: <span class="tx-danger">*</span></label>
+                          <input class="form-control" type="text" name="gender" value="{{ customer.gender }}">
+                       </div>
+                    </div>
+                    <!-- col-4 -->
+                    <div class="col-lg-4">
+                       <div class="form-group">
+                          <label class="form-control-label active">Phone: <span class="tx-danger">*</span></label>
+                          <input class="form-control" type="text" name="phone" value="{{ customer.phone }}">
+                       </div>
+                    </div>
+                    <!-- col-4 -->
+                    <div class="col-lg-4">
+                       <div class="form-group mg-b-10-force">
+                          <label class="form-control-label active">Email: <span class="tx-danger">*</span></label>
+                          <input class="form-control" type="email" name="email" value="{{ customer.email }}">
+                       </div>
+                    </div>
+                    <!-- col-8 -->
+                    <div class="col-lg-4">
+                       <div class="form-group mg-b-10-force">
+                          <label class="form-control-label">Place of work: <span class="tx-danger">*</span></label>
+                          <input class="form-control" type="text" name="work" value="{{ customer.place_of_work }}">
+                       </div>
+                    </div>
+
+                     <div class="col-lg-4">
+                       <div class="form-group mg-b-10-force">
+                          <label class="form-control-label">Next of Kin: <span class="tx-danger">*</span></label>
+                          <input class="form-control" type="text" name="kin" value="{{ customer.next_of_kin }}">
+                       </div>
+                    </div>
+                    <!-- col-4 -->
+                 </div>
+                 <!-- row -->
+                 <div class="form-layout-footer">
+                    <button class="btn btn-primary" type="submit">Submit Form</button>
+                    <button class="btn btn-secondary" type="submit">Cancel</button>
+                 </div>
+                 <!-- form-layout-footer -->
+              </div>
+               </form>
+           </div>
+        </div>
+     </div>
+     <!--/ Top Label Layout End -->
+     <!--================================-->
+
+
+     <!--/ Form in Modal End -->
+  </div>
+  <!--/ Form Layouts End -->
+</div>
+<!--/ Wrapper End -->
+</div>
+<!--/ Page Inner End -->
+<!--================================-->
+{% endblock %}
+<!-- Page Footer Start -->
+<!--================================-->
